@@ -1,5 +1,6 @@
 package cn.fmnx.netty.client;
 
+import cn.fmnx.protobuf.BookMessage;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
@@ -18,7 +19,9 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
     //通道就绪事件
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         System.out.println("clietn:"+ctx);
-        ctx.writeAndFlush(Unpooled.copiedBuffer("老板还钱把", CharsetUtil.UTF_8));
+        //ctx.writeAndFlush(Unpooled.copiedBuffer("老板还钱把", CharsetUtil.UTF_8));
+        BookMessage.Book msg = BookMessage.Book.newBuilder().setId(1).setName("java从入门到精通").build();
+        ctx.writeAndFlush(msg);
     }
 
     @Override

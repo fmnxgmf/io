@@ -7,6 +7,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.protobuf.ProtobufEncoder;
 
 
 /**
@@ -27,6 +28,7 @@ public class NettyClient {
                 .handler(new ChannelInitializer<SocketChannel>() {//5.创建一个通道初始化对象
                     @Override
                     protected void initChannel(SocketChannel socketChannel) throws Exception {//6.往 Pipeline 链中添加自定义的业务处理 handler
+                        socketChannel.pipeline().addLast("encoder",new ProtobufEncoder());
                         socketChannel.pipeline().addLast(new NettyClientHandler());
                         System.out.println("--------client is ready---------");
                     }

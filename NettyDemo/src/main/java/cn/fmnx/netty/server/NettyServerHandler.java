@@ -1,5 +1,6 @@
 package cn.fmnx.netty.server;
 
+import cn.fmnx.protobuf.BookMessage;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
@@ -22,8 +23,10 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     //读取数据事件
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         System.out.println("server:"+ctx);
-        ByteBuf buffer = (ByteBuf) msg;
-        System.out.println("客户端发来的消息:"+buffer.toString(CharsetUtil.UTF_8));
+       // ByteBuf buffer = (ByteBuf) msg;
+        BookMessage.Book buffer = (BookMessage.Book)msg;
+        //System.out.println("客户端发来的消息:"+buffer.toString(CharsetUtil.UTF_8));
+        System.out.println("客户端发来的消息:"+buffer.getId()+"*****"+buffer.getName());
     }
 
     @Override

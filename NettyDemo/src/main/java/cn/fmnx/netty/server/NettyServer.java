@@ -1,5 +1,6 @@
 package cn.fmnx.netty.server;
 
+import cn.fmnx.protobuf.BookMessage;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -9,6 +10,7 @@ import io.netty.channel.nio.NioEventLoop;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.protobuf.ProtobufDecoder;
 
 /**
  * @description:
@@ -33,6 +35,7 @@ public class NettyServer {
         .childHandler(new ChannelInitializer<SocketChannel>() {//8.创建一个通道的初始化对象
             @Override
             protected void initChannel(SocketChannel sc) throws Exception {//9.往Pipeline链中添加自定义的业务处理handler
+                sc.pipeline().addLast("decoder",new ProtobufDecoder(BookMessage.Book.getDefaultInstance()));
                 sc.pipeline().addLast(new NettyServerHandler());//服务器端的业务处理类
                 System.out.println("---------server is ready---------");
             }
