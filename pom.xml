@@ -22,6 +22,7 @@
     </build>
     <modules>
         <module>NettyDemo</module>
+        <module>thrift</module>
     </modules>
     <dependencies>
         <dependency>
