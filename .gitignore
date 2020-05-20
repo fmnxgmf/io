@@ -6,7 +6,6 @@
 # IntelliJ project files
 .idea
 *.iml
-*.txt
 .gitignore
 out
 gen
